@@ -41,13 +41,16 @@ const wrap = async (req, res, handle) => {
  * @returns {Promise<void>}
  */
 const needAuth = async (req, res, next) => {
-    await wrap(req, res, async () => {
+    try {
         let {user, passwd} = req.body;
 
         (!user || SysConf.WHITE_LIST[user] !== passwd) && tools.threw(ERROR_OBJ.BAD_AUTH);
 
         next();
-    })
+    } catch (err) {
+        logger.error(err);
+        res.send({sussess: false, msg: err.message})
+    }
 };
 
 /**
