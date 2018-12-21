@@ -8,5 +8,9 @@ const mongoose  = require('mongoose');
 const connector = require('./mongo_connector');
 
 require('./item');
+require('./shared_item');
+require('./user');
 
-exports.Item    = mongoose.model('item');
+exports.Item        = mongoose.model('item');
+exports.ShareItem   = mongoose.model('shareItem');
+exports.User        = mongoose.model('user');

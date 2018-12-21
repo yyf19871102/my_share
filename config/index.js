@@ -35,6 +35,16 @@ let config = {
         DOWNLOAD: '/download',
         SEARCH  : '/search',
     },
+
+	CATEGORY    : ['work', 'entertainment'], // 用途分类
+    STORAGE_TYPE: ['video', 'music', 'file', 'software'], // 存储类型
+
+    // 记录状态
+    STATUS      : {
+	    DELETED : -1, // 删除
+	    BLOCK   : 0, // 冻结
+	    ACTIVE  : 1, // 正常
+    },
 };
 
 // 读取config目录下所有配置文件，并合并到system当中
