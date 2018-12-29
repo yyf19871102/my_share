@@ -5,7 +5,7 @@
  */
 const Redis         = require('ioredis');
 
-const config        = require('../config/index').REDIS;
+const config        = require('./config').REDIS;
 
 if (!config) {
 	console.error('找不到redis配置文件！');

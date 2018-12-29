@@ -10,7 +10,9 @@ const connector = require('./mongo_connector');
 require('./item');
 require('./shared_item');
 require('./user');
+require('./user_action');
 
 exports.Item        = mongoose.model('item');
-exports.ShareItem   = mongoose.model('shareItem');
+exports.ShareItem   = mongoose.model('sharedItem');
 exports.User        = mongoose.model('user');
+exports.UserAction  = mongoose.model('userAction');

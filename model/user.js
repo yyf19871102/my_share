@@ -15,7 +15,7 @@ const UserSchema = new Schema({
     password: {type: String, default: 'CMCC10086'}, // 密码
     email   : String, // 邮箱
     isRoot  : {type: Boolean, default: false}, // root权限
-    status  : {type: String, default: STATUS.ACTIVE}, // 用户状态
+    status  : {type: Number, default: STATUS.ACTIVE}, // 用户状态
 }, {collection: 'user'});
 
 mongoose.model('user', UserSchema);

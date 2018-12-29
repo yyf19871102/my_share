@@ -16,6 +16,15 @@ let config = {
 	    yyf     : '19871102'
     },
 
+    SALT        : 'cmcc10086_hello_world',
+
+    EXPIRE      : {
+	    SESSION : 5 * 24 * 60 * 60,
+        USER    : 15,
+    },
+
+    SESSION_KEY : 'msession', // session的cookie名称
+
 	// 错误相关信息
 	ERROR_OBJ   : {
 		SUCCESS     : {code: 0, msg: '操作成功！'},
@@ -26,9 +35,12 @@ let config = {
         BAD_AUTH    : {code: 103, msg: '用户名或者密码错误！'},
         BAD_UPLOAD  : {code: 104, msg: '该item已经上传过了！'},
         BAD_NAME    : {code: 105, msg: 'item必须有名字！'},
+		BAD_SESSION : {code: 106, msg: '非法的session！'},
+        NO_USER     : {code: 107, msg: '非法的userId！'},
+        BAD_ITEM    : {code: 108, msg: '操作item发送错误！'},
 	},
 
-    API         : {
+    _API         : {
 	    UPLOAD  : '/upload',
         DELETE  : '/delete',
         UPDATE  : '/update',
@@ -36,8 +48,14 @@ let config = {
         SEARCH  : '/search',
     },
 
-	CATEGORY    : ['work', 'entertainment'], // 用途分类
-    STORAGE_TYPE: ['video', 'music', 'file', 'software'], // 存储类型
+    API         : {
+	    LOGIN   : '/login',
+        LOGOUT  : '/logout',
+
+    },
+
+	CATEGORY    : ['work', 'entertainment'], // file用途分类
+    STORAGE_TYPE: ['video', 'music', 'file', 'software'], // file存储类型
 
     // 记录状态
     STATUS      : {
@@ -45,6 +63,8 @@ let config = {
 	    BLOCK   : 0, // 冻结
 	    ACTIVE  : 1, // 正常
     },
+
+    SWAGGER_FILE: 'myShare.json', // swagger配置文件
 };
 
 // 读取config目录下所有配置文件，并合并到system当中

@@ -8,4 +8,6 @@ module.exports = {
     HOST        : '127.0.0.1',
 
     SAVE_DIR    : 'd://tmp/save/',
+
+    DIRECT      : true,
 };

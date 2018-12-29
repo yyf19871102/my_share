@@ -24,7 +24,7 @@ const SharedItemSchema = new Schema({
     like    : [{type: String, ref: 'user'}], // 点赞人
     unLike  : [{type: String, ref: 'user'}], // 踩得人
     status  : {type: String, default: SysConf.STATUS.ACTIVE}, // 状态
-}, {collection: 'item'});
+}, {collection: 'sharedItem'});
 
 // 下载地址
 SharedItemSchema.virtual('downloadUrl').get(function () {

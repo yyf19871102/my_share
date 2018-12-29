@@ -1,0 +1,352 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "description": "MyShare是一个文件共享服务器。开发这个东西的原因是一年之内频繁更换开发笔记本，每次都需要下载一些开发和平时使用的软件，现在用MyShare可以备份这些常用软件，省去下来下去的麻烦~",
+    "version": "0.2.0",
+    "title": "My Share",
+    "contact": {
+      "email": "yyf19871102@163.com"
+    }
+  },
+  "host": "47.104.67.236",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "user",
+      "description": "用户相关操作"
+    },
+    {
+      "name": "item",
+      "description": "共享文件操作"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "用户登录",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "userName",
+            "type": "string",
+            "description": "用户名"
+          },
+          {
+            "in": "formData",
+            "name": "password",
+            "type": "string",
+            "description": "密码"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "res.data为用户信息",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          }
+        }
+      }
+    },
+    "/logout": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "用户登出",
+        "responses": {
+          "default": {
+            "description": "res.data为用户信息",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          }
+        }
+      }
+    },
+    "/user/add": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "添加用户",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "name",
+            "type": "string",
+            "description": "用户名",
+            "required": true
+          },
+          {
+            "in": "formData",
+            "name": "password",
+            "type": "string",
+            "default": "CMCC10086",
+            "description": "初始密码"
+          },
+          {
+            "in": "formData",
+            "name": "isRoot",
+            "type": "boolean",
+            "default": false,
+            "description": "是否root权限"
+          },
+          {
+            "in": "formData",
+            "name": "email",
+            "type": "string",
+            "description": "邮箱"
+          },
+          {
+            "in": "formData",
+            "name": "status",
+            "type": "integer",
+            "enum": [
+              -1,
+              0,
+              1
+            ],
+            "default": 1,
+            "description": "用户状态，默认激活状态（1）"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "res.data为用户信息",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          }
+        }
+      }
+    },
+    "/user/delete": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "删除用户",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "userId",
+            "type": "string",
+            "required": true,
+            "description": "用户ID"
+          },
+          {
+            "in": "formData",
+            "name": "block",
+            "type": "boolean",
+            "description": "true表示冻结用户；否则为逻辑删除用户（status为-1）"
+          },
+          {
+            "in": "formData",
+            "name": "completeDelete",
+            "type": "boolean",
+            "description": "true表示物理删除用户（不可恢复）"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "res.data为删除结果",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          }
+        }
+      }
+    },
+    "/user/update": {
+      "post": {
+        "tags": [
+          "user"
+        ],
+        "summary": "修改用户",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "用户ID"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "res.data为用户信息",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          }
+        }
+      }
+    },
+    "/user/search": {
+      "get": {
+        "tags": [
+          "user"
+        ],
+        "summary": "查询用户",
+        "responses": {
+          "default": {
+            "description": "res.data为用户列表信息",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          }
+        }
+      }
+    },
+    "/item/add": {
+      "post": {
+        "tags": [
+          "item"
+        ],
+        "summary": "添加共享文件；文件名作为其ID；",
+        "consumes": [
+          "multipart/form-data",
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "item",
+            "type": "file",
+            "description": "上传共享文件"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "res.data为上传文件信息",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          }
+        }
+      }
+    },
+    "/item/delete": {
+      "post": {
+        "tags": [
+          "item"
+        ],
+        "summary": "删除共享文件",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "id",
+            "type": "string",
+            "required": true,
+            "description": "文件ID"
+          },
+          {
+            "in": "formData",
+            "name": "block",
+            "type": "boolean",
+            "description": "true表示冻结文件；否则为逻辑删除文件（status为-1）"
+          },
+          {
+            "in": "formData",
+            "name": "completeDelete",
+            "type": "boolean",
+            "description": "true表示物理删除文件（不可恢复）"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "res.data为用户信息",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          }
+        }
+      }
+    },
+    "/item/update": {
+      "post": {
+        "tags": [
+          "item"
+        ],
+        "summary": "修改文件",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "in": "formData",
+            "name": "id",
+            "required": true,
+            "type": "string",
+            "description": "文件ID"
+          }
+        ],
+        "responses": {
+          "default": {
+            "description": "res.data为文件信息",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          }
+        }
+      }
+    },
+    "/item/search": {
+      "get": {
+        "tags": [
+          "item"
+        ],
+        "summary": "查询文件",
+        "responses": {
+          "default": {
+            "description": "res.data为文件列表信息",
+            "schema": {
+              "$ref": "#/definitions/Result"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Result": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "integer"
+        },
+        "msg": {
+          "type": "string"
+        },
+        "data": {
+          "type": "object"
+        }
+      }
+    }
+  }
+}

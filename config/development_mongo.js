@@ -6,7 +6,9 @@
 module.exports = {
     uri : 'mongodb://127.0.0.1/myShare',
     opt : {
-        useNewUrlParser:true,
+        useNewUrlParser: true,
         poolSize: 20,
+        useCreateIndex: true,
+        useFindAndModify: false,
     },
 };
